@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.git/
+.gitignore
+*.md
+frames_*.gv
+frames_*.pdf

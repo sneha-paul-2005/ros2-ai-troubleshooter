@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+langchain
+langgraph
+langchain-community
+langchain-ollama
+qdrant-client
+sentence-transformers
+streamlit
+requests
+python-dotenv
+pydantic
+httpx
