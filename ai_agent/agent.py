@@ -1,10 +1,30 @@
-from langchain_ollama import ChatOllama
-from langgraph.prebuilt import create_react_agent
+import os
 from langchain_core.tools import tool
-from rag.rag_engine import search_ros2_knowledge
+from langgraph.prebuilt import create_react_agent
 import requests
 
 MCP_URL = "http://localhost:8000"
+
+# Detect mode — local Ollama or Groq API
+ROSA_MODE = os.getenv("ROSA_MODE", "local")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
+
+if ROSA_MODE == "groq" and GROQ_API_KEY:
+    from langchain_groq import ChatGroq
+    llm = ChatGroq(
+        model="llama3-8b-8192",
+        temperature=0,
+        max_tokens=2028,
+        api_key=GROQ_API_KEY
+    )
+else:
+    from langchain_ollama import ChatOllama
+    llm = ChatOllama(
+        model="qwen2.5:3b",
+        temperature=0,
+        num_predict=2028,
+        extra_body={"think": False}
+    )
 
 @tool
 def get_active_nodes() -> str:
@@ -64,17 +84,10 @@ def get_full_health_check() -> str:
 def search_knowledge_base(query: str) -> str:
     """Search the ROS2 knowledge base for known errors, fixes, and documentation."""
     try:
+        from rag.rag_engine import search_ros2_knowledge
         return search_ros2_knowledge(query)
     except Exception as e:
         return f"Error: {e}"
-
-# Setup LLM — thinking disabled, fast mode
-llm = ChatOllama(
-    model="qwen2.5:3b",
-    temperature=0,
-    num_predict=512,
-    extra_body={"think": False}
-)
 
 tools = [
     get_active_nodes,
@@ -86,19 +99,15 @@ tools = [
     search_knowledge_base
 ]
 
-system_prompt = """You are a ROS2 AI Troubleshooter assistant.
-
-When answering questions:
-1. ALWAYS search the knowledge base FIRST using search_knowledge_base tool
-2. THEN check live robot data if needed
-3. Give clear, specific answers based on both knowledge base and live data
-
-Be concise and helpful."""
+system_prompt = """You are ROSA, an intelligent ROS2 AI Assistant.
+You help robotics developers diagnose, troubleshoot and fix ROS2 problems.
+Always search the knowledge base first, then check live robot data if needed.
+Give clear, specific answers with exact commands."""
 
 agent = create_react_agent(llm, tools, prompt=system_prompt)
 
 def ask_ros2(question: str) -> str:
-    """Send a question to the ROS2 AI agent."""
+    """Send a question to ROSA."""
     result = agent.invoke({
         "messages": [{"role": "user", "content": question}]
     })
