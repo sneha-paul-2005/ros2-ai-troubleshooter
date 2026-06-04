@@ -10,6 +10,8 @@
 
 ### Your AI-Powered ROS2 Robotics Copilot
 
+🌐 **Live Demo:** https://rosa-ros2-ai-assistant-production.up.railway.app
+
 ROSA (ROS2 AI Assistant) is a free, locally hosted AI-powered assistant designed to help robotics developers diagnose, troubleshoot, and monitor ROS2 robot systems in real time.
 
 Powered by local LLMs and integrated directly with ROS2, ROSA can inspect robot health, analyze logs, debug ROS2 nodes, query live robot data, and provide intelligent troubleshooting assistance without relying on paid APIs or cloud services.
@@ -22,7 +24,7 @@ Powered by local LLMs and integrated directly with ROS2, ROSA can inspect robot 
 * Automated code fixing for broken ROS2 Python nodes
 * Error log analysis with root cause diagnosis and fix suggestions
 * Full robot health check covering nodes, topics, LiDAR, and odometry
-* RAG pipeline with 48+ ROS2-specific knowledge entries
+* RAG pipeline with 200+ ROS2-specific knowledge entries
 * Terminal CLI interface similar to AI coding assistants
 * Streamlit web dashboard for visual interaction
 * Compatible with any ROS2 robot, not limited to TurtleBot3
@@ -52,18 +54,19 @@ The system follows an AI-agent architecture where LangGraph coordinates reasonin
 
 ## Tech Stack
 
-| Component            | Technology            |
-| -------------------- | --------------------- |
-| AI Model             | Qwen2.5:3B            |
-| Local Inference      | Ollama                |
-| Agent Framework      | LangGraph + LangChain |
-| Knowledge Base       | Qdrant                |
-| Embeddings           | Sentence Transformers |
-| MCP Server           | FastAPI               |
-| Dashboard            | Streamlit             |
-| Robotics Middleware  | ROS2 Jazzy            |
-| Simulator            | Gazebo Sim 8          |
-| Programming Language | Python 3.10+          |
+| Component            | Technology                      |
+| -------------------- | ------------------------------- |
+| AI Model             | Qwen2.5:3B                      |
+| Local Inference      | Ollama                          |
+| Cloud LLM            | Groq API (llama-3.1-8b-instant) |
+| Agent Framework      | LangGraph + LangChain           |
+| Knowledge Base       | Qdrant                          |
+| Embeddings           | Sentence Transformers           |
+| MCP Server           | FastAPI                         |
+| Dashboard            | Streamlit                       |
+| Robotics Middleware  | ROS2 Jazzy                      |
+| Simulator            | Gazebo Sim 8                    |
+| Programming Language | Python 3.10+                    |
 
 ---
 
@@ -228,4 +231,3 @@ See the `LICENSE` file for additional information.
 **Sneha Paul**
 
 GitHub: https://github.com/sneha-paul-2005
-
