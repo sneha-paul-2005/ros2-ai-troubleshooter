@@ -20,4 +20,4 @@ ENV TRANSFORMERS_VERBOSITY=error
 ENV HF_HUB_DISABLE_PROGRESS_BARS=1
 
 # Run Streamlit dashboard
-CMD ["streamlit", "run", "dashboard.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["sh", "-c", "streamlit run dashboard.py --server.port=${PORT:-8501} --server.address=0.0.0.0"]
