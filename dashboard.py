@@ -8,7 +8,7 @@ import requests
 import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from ask_ros2 import ask_with_rag
+from ai_agent.agent import ask_ros2 as ask_with_rag
 
 MCP_URL = "http://localhost:8000"
 
