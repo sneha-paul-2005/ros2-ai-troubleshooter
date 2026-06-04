@@ -65,8 +65,7 @@ with st.sidebar:
             st.warning("No topics found")
 
     except Exception as e:
-        st.error(f"MCP Server not running!\nStart it with:\nuvicorn mcp_server.main:app --port 8000")
-
+        st.info("🖥️ Robot Status is only available when running ROSA locally with ROS2 and the MCP server. Cloud version shows AI features only.")
 # Main tabs
 tab1, tab2, tab3, tab4 = st.tabs([
     "💬 Ask AI",
@@ -134,8 +133,7 @@ with tab2:
                     st.text(health.get("odometry", "No data")[:300])
 
             except Exception as e:
-                st.error("MCP Server not running!")
-
+                st.info("🖥️ Health Check requires a local ROS2 setup. Run ROSA locally with the MCP server to use this feature.")
 # Tab 3 — Code Fixer
 with tab3:
     st.header("🔧 ROS2 Code Fixer")
